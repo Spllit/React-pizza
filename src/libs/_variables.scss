@@ -1,0 +1,48 @@
+$black: #232323;
+$background: #ffdf8c;
+$gray-line: #f6f6f6;
+$orange: #fe5f1e;
+
+$container-width: 90%;
+
+$duration: 0.15s;
+
+%button {
+	display: inline-block;
+	background-color: $orange;
+	border-radius: 30px;
+	padding: 10px 20px;
+	min-width: 100px;
+	text-align: center;
+	cursor: pointer;
+	transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
+	border: 1px solid transparent;
+
+	&,
+	span {
+		color: #fff;
+	}
+
+	i,
+	span,
+	path,
+	svg {
+		transition: all $duration ease-in-out;
+	}
+
+	// &:hover {
+	// 	background-color: darken($orange, 8%);
+	// 	a {
+	// 		background-color: darken($orange, 8%);
+	// 	}
+	// }
+
+	&:active {
+		background-color: darken($orange, 12%);
+		transform: translateY(1px);
+	}
+}
+%container {
+	width: $container-width;
+	margin: 0 auto;
+}
