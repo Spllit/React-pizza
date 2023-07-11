@@ -2,7 +2,7 @@ import React from 'react';
 import style from './Categories.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategory } from '../../redux/slices/filterSlice';
-import { setCurrentPageIndex } from '../../redux/slices/paginationSlice';
+import { setCurrentPageIndex } from '../../redux/slices/filterSlice';
 
 function Categories(props) {
 	const dispatch = useDispatch();

@@ -6,41 +6,9 @@
 		@extend %button;
 	}
 }
-%page {
-	border-radius: 50%;
-	color: $orange;
-	a {
-		min-width: 32px;
-		min-height: 32px;
-		background-color: #fff;
-		border-color: $orange;
-		color: $orange;
-	}
-	&:hover {
-		color: #fff;
-		a {
-			color: #fff;
-			background-color: $orange;
-		}
-	}
-}
 .container {
 	display: flex;
 	justify-content: center;
-}
-.pagination {
-	display: flex;
-	justify-content: space-evenly;
-}
-.page {
-	@extend %page;
-}
-.pageActive {
-	@extend %page;
-	color: #fff;
-	a {
-		background-color: $orange;
-	}
 }
 .hide {
 	display: none;

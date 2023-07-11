@@ -1,0 +1,21 @@
+@import '../../libs/variables';
+.page {
+	@extend %page;
+}
+.pageActive {
+	@extend %page;
+	color: #fff;
+	a {
+		background-color: $orange;
+	}
+}
+.button {
+	padding: 0 2%;
+	a {
+		@extend %button;
+	}
+}
+.pagination {
+	display: flex;
+	justify-content: space-evenly;
+}

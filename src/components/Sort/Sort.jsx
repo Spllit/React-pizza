@@ -6,7 +6,6 @@ import { setSortBy } from '../../redux/slices/filterSlice';
 export default function Sort() {
 	const sortBy = useSelector((store) => store.filter.sortBy);
 	const dispatch = useDispatch();
-	// const { sortBy, setSortBy } = React.useContext(AppContext);
 	const [popupIsOpen, setPopupIsOpen] = useState(false);
 	const sortMap = {
 		rating: 'популярности',
