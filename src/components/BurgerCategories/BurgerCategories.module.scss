@@ -1,0 +1,21 @@
+@import '../.././libs/_variables';
+.burger{
+    @extend %buttonCategory;
+    min-width: 120px;
+    span{
+        margin-left: 10px;
+    }
+}
+@media screen and (min-width: 1299px){
+    .burger{
+        display: none;
+    }
+}
+@media screen and (max-width: 322px){
+    .burger{
+        padding: 13px 10px;
+        span{
+            font-size: 11px;
+        }
+    }
+}

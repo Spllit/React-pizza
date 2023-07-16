@@ -1,5 +1,4 @@
 import { Pagination} from '@mui/material';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentPageIndex} from '../../redux/slices/filterSlice';
 

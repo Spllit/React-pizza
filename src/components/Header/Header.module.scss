@@ -3,17 +3,19 @@
 .header {
 	border-bottom: 1px solid $gray-line;
 	padding: 40px 0;
+	
 }
 .container {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	flex-wrap: wrap;
 	@extend %container;
 }
 
 .logo {
 	display: flex;
-
+	
 	img {
 		margin-right: 15px;
 	}
@@ -28,5 +30,20 @@
 
 	p {
 		color: #7b7b7b;
+	}
+}
+@media screen and (max-width: 991px) {
+	.header{
+		padding: 20px 0;
+	}
+}
+// @media screen and (max-width: 425px) {
+// 	.logo{
+// 		display: none;
+// 	}
+// }
+@media screen and (max-width: 595px) {
+	.container{
+		justify-content: center;
 	}
 }

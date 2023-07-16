@@ -32,7 +32,7 @@
 	border-radius: 10px;
 	overflow: hidden;
 	padding: 10px 0;
-	width: 160px;
+	width: 180px;
 
 	ul {
 		overflow: hidden;
@@ -48,6 +48,30 @@
 			&.active {
 				font-weight: bold;
 				color: $orange;
+			}
+		}
+	}
+}
+@media screen and (max-width: 768px){
+	.sort{
+		min-width: 0px;
+	}
+	.label{
+		b{
+			display: none;
+		}
+	}
+}
+@media screen and (max-width: 320px){
+	.label{
+		span{
+			font-size: 13px;
+		}
+	}
+	.popup{
+		ul{
+			li{
+				font-size: 13px;
 			}
 		}
 	}

@@ -22,10 +22,10 @@ function ButtonAdd({ amount, onClick }) {
 		</button>
 	);
 }
-function ButtonCart() {
+function ButtonCart({scrollDirection}) {
 	return (
 		<button>
-			<div className={`${styles.button} ${styles.buttonCart}`}>
+			<div className={scrollDirection === 'down' ?`${styles.button} ${styles.buttonCart} ${styles.hideButton}` : `${styles.button} ${styles.buttonCart}`}>
 				<span>520 ₽</span>
 				<div className={styles.buttonDelimiter}></div>
 				<svg

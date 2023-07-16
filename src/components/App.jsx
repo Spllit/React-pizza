@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import style from './App.module.scss';
+import styles from './App.module.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home';
 import Sort from './Sort/Sort';
@@ -23,30 +23,44 @@ export default function App() {
 	const [isLoading, setIsLoading] = useState(true);
 	const isMounted = useRef(false)
 	const isLoaded = useRef(false)
-	useEffect(() => {
-		if(isMounted.current){
-			const queryString = qs.stringify({
-				sortBy,
-				category,
-				currentPageIndex,
-				search: searchValue
-			});
-			console.log(queryString);
-			navigate(`?${queryString}`);
-		}
-		isMounted.current = true
-		setIsLoading(true);
-		/* запрос на сервер*/
-		onSearch()
-	}, [sortBy, category, currentPageIndex]);
 
+	useEffect(() => {
+		window.scrollTo(0, 0)
+		const queryProps = window.location.search
+		if(queryProps){
+			const props = qs.parse(window.location.search, { ignoreQueryPrefix: true})
+			dispatch(setFilters(props))
+			isLoaded.current = true
+		}
+	}, [])
+
+	useEffect(() => {
+			if(!isLoaded.current){
+				if(isMounted){
+					console.log('isMounted')
+					const queryString = qs.stringify({
+						sortBy,
+						category,
+						currentPageIndex,
+						searchValue
+					});
+					navigate(`?${queryString}`);
+				}
+				isMounted.current = true
+			setIsLoading(true);
+			/* запрос на сервер*/
+			fetchPizzas()
+		}
+		isLoaded.current = false
+	}, [sortBy, category, currentPageIndex]);
+		
 	const createSearch = useCallback(
 		debounce((searchString) => {
 			search(searchString);
 		}, 1000),
 		[],
 	);
-	const onSearch = async (searchString = '') => {
+	const fetchPizzas = async (searchString = '') => {
 		const getSortedItems = await getData(generateUrlString(searchString, currentPageIndex, 6))
 		const getAllItems = await getData(generateUrlString(searchString))
 		
@@ -57,10 +71,10 @@ export default function App() {
 	const search = (searchString) => {
 		if (typeof searchString !== 'string') return;
 		else if (!searchString.length) {
-			onSearch()
+			fetchPizzas()
 			return;
 		}
-		onSearch(searchString)
+		fetchPizzas(searchString)
 	};
 
 	const processResponse = (items, QtyItems) => {
@@ -92,16 +106,16 @@ export default function App() {
 				items,
 			}}>
 			<div fluid="xxl">
-				<div className={style.wrapper}>
+				<div className={styles.wrapper}>
 					<Header search={(value) => createSearch(value)} />
-					<div className={style.content}>
-						<div className={style.container}>
+					<div className={styles.content}>
+						<div className={styles.container}>
 							<Routes>
 								<Route
 									path="/"
 									element={
 										<>
-											<div className={style.contentTop}>
+											<div className={styles.contentTop}>
 												<Categories>
 													{categories.map((item) => (
 														<CategoriesItems key={item} textContent={item} />
@@ -109,10 +123,8 @@ export default function App() {
 												</Categories>
 												<Sort />
 											</div>
-											<h2 className={style.contentTitle}>{category} пиццы</h2>
-											<Home loading={isLoading}
-												onSearch = {() => onSearch()}
-											/>
+											<h2 className={styles.contentTitle}>{category} пиццы</h2>
+											<Home loading={isLoading} />
 										</>
 									}></Route>
 								<Route path="/cart" element={<Cart />}></Route>

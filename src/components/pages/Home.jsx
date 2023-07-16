@@ -1,31 +1,19 @@
-import {useCallback, useEffect} from 'react';
+// import {useCallback, useEffect} from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import PizzaCard from '../PizzaCard/PizzaCard';
 import Skeleton from '../Skeleton/Skeleton';
 import Paginate from '../Paginate/Paginate'
 import styles from './Home.module.scss';
 // import ReactPaginate from 'react-paginate';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentPageIndex, setFilters } from '../../redux/slices/filterSlice';
-import qs from 'qs';
+import { useSelector } from 'react-redux';
+// import { setCurrentPageIndex, setFilters } from '../../redux/slices/filterSlice';
+// import qs from 'qs';
 
 
-export default function Home({ loading, onSearch }) {
-	const dispatch = useDispatch();
+export default function Home({loading}) {
+
 	const { items } = useSelector((state) => state.items);
-	// const { currentPageIndex } = useSelector((state) => state.filter);
 	let index = 0;
-	// useEffect(() => {
-	// 	const queryProps = window.location.search
-	// 	if(queryProps){
-	// 		const props =  qs.parse(queryProps, { ignoreQueryPrefix: true })
-	// 		dispatch(
-	// 			setFilters(
-	// 				props
-	// 			)
-	// 		)
-	// 	}
-	// },[])
 
 	const renderCards = () => {
 		if (loading) {
@@ -52,10 +40,7 @@ export default function Home({ loading, onSearch }) {
 				{renderCards()}
 			</Row>
 			<div className={styles.container}>
-				{/* {console.log(currentPageIndex)} */}
-				<Paginate
-				onSearch = {() => onSearch()}
-				/>
+				<Paginate/>
 			</div>
 		</Container>
 	);

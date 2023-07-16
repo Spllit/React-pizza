@@ -30,10 +30,10 @@ const filterSlice = createSlice({
 			state.itemsQty = active.payload
 		},
 		setFilters(state, active){
-			state.sortBy = active.payload
-			state.category = active.payload
-			state.searchValue = active.payload
-			state.currentPageIndex = Number(active.payload);
+			state.sortBy = active.payload.sortBy
+			state.category = active.payload.category
+			state.searchValue = active.payload.searchValue
+			state.currentPageIndex = Number(active.payload.currentPageIndex);
 		}
 	},
 });

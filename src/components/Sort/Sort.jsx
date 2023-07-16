@@ -8,25 +8,15 @@ export default function Sort() {
 	const dispatch = useDispatch();
 	const [popupIsOpen, setPopupIsOpen] = useState(false);
 	const sortMap = {
-		rating: 'популярности',
-		price: 'цене',
-		title: 'алфавиту',
+		rating: 'по популярности',
+		price: 'по цене',
+		title: 'по алфавиту',
 	};
 	return (
 		<div className={style.sort} onClick={() => setPopupIsOpen(() => !popupIsOpen)}>
 			<div className={style.label}>
-				<svg
-					width="10"
-					height="6"
-					viewBox="0 0 10 6"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg">
-					<path
-						d="M10 5C10 5.16927 9.93815 5.31576 9.81445 5.43945C9.69075 5.56315 9.54427 5.625 9.375 5.625H0.625C0.455729 5.625 0.309245 5.56315 0.185547 5.43945C0.061849 5.31576 0 5.16927 0 5C0 4.83073 0.061849 4.68424 0.185547 4.56055L4.56055 0.185547C4.68424 0.061849 4.83073 0 5 0C5.16927 0 5.31576 0.061849 5.43945 0.185547L9.81445 4.56055C9.93815 4.68424 10 4.83073 10 5Z"
-						fill="#2C2C2C"
-					/>
-				</svg>
-				<b>Сортировка по:</b>
+			<svg fill="#000" height="25" viewBox="0 0 16 16" width="25" xmlns="http://www.w3.org/2000/svg"><path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg>
+				<b>Сортировать : </b>
 				<span>{sortMap[sortBy]}</span>
 			</div>
 			{popupIsOpen && (
@@ -35,17 +25,17 @@ export default function Sort() {
 						<li
 							className={sortBy === 'rating' ? style.active : null}
 							onClick={() => dispatch(setSortBy('rating'))}>
-							популярности
+							по популярности
 						</li>
 						<li
 							className={sortBy === 'price' ? style.active : null}
 							onClick={() => dispatch(setSortBy('price'))}>
-							цене
+							по цене
 						</li>
 						<li
 							className={sortBy === 'title' ? style.active : null}
 							onClick={() => dispatch(setSortBy('title'))}>
-							алфавиту
+							по алфавиту
 						</li>
 					</ul>
 				</div>

@@ -106,6 +106,7 @@
 	align-items: center;
 	line-height: 23px;
 	padding: 12px 25px;
+	z-index: 10;
 	svg {
 		margin-right: 8px;
 		margin-bottom: 1px;
@@ -114,7 +115,40 @@
 		font-weight: 600;
 		font-size: 16px;
 	}
+	
 }
+@media screen and (max-width: 595px) {
+	.buttonCart{
+		position: fixed;
+		bottom: 20px;
+		right: 30px;
+		&.hideButton{
+			animation: hide .5s ease;
+			visibility: hidden;
+		}
+	}
+}
+// @keyframes hide {
+// 	0%{
+// 		transform: translateY(0);
+// 	}
+// 	100%{
+// 		transform: translateY(200%);
+// 		position: absolute;
+// 		display: none;
+// 		visibility: hidden;
+		
+// 	}
+// }
+// @keyframes show {
+// 	0%{
+// 		position: fixed;
+// 		transform: translateY(200%);
+// 	}
+// 	100%{
+// 		transform: translateY(0);
+// 	}
+// }
 
 .buttonBlack {
 	background-color: $black;
