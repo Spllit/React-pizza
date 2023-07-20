@@ -1,10 +1,11 @@
 import React from 'react';
-
-export default function CartEmpty() {
+import {ButtonDark} from '../Buttons/Buttons'
+import styles from './styles/CartEmpty.module.scss'
+function CartEmpty() {
 	return (
-		<div class="cart cart--empty">
+		<div className={`${styles.empty}`}>
 			<h2>
-				Корзина пустая <icon>😕</icon>
+				Корзина пустая 
 			</h2>
 			<p>
 				Вероятней всего, вы не заказывали ещё пиццу.
@@ -12,9 +13,8 @@ export default function CartEmpty() {
 				Для того, чтобы заказать пиццу, перейди на главную страницу.
 			</p>
 			<img src="/img/empty-cart.png" alt="Empty cart" />
-			<a href="/" class="button button--black">
-				<span>Вернуться назад</span>
-			</a>
+			<ButtonDark/>
 		</div>
 	);
 }
+export {CartEmpty}

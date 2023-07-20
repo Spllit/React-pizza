@@ -1,29 +1,32 @@
 import React from 'react';
 import styles from './CartItem.module.scss';
 import { ButtonCircle } from '../Buttons/Buttons';
-export default function CartItem({ name, description, cost, number, src }) {
+export default function CartItem({ name, description, price, amount, src, onAmountChange, deletePizza }) {
 	return (
 		<div className={styles.item}>
 			<div className={styles.img}>
 				<img
-					src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+					src={src}
 					alt="Pizza"
 				/>
 			</div>
 			<div className={styles.info}>
-				<h3>Сырный цыпленок</h3>
-				<p>тонкое тесто, 26 см.</p>
+				<h3>{name}</h3>
+				<p>{`${description.type}, ${description.size} см`}</p>
 			</div>
 			<div className={styles.count}>
-				<ButtonCircle innerIcon={'plus'} />
-				<b>10</b>
-				<ButtonCircle innerIcon={'minus'} />
+				<ButtonCircle innerIcon={'plus'} 
+				action = {() => onAmountChange(amount + 1)}/>
+				<b>{amount}</b>
+				<ButtonCircle innerIcon={'minus'} 
+				action = {() => amount > 0 ? onAmountChange(amount - 1) : onAmountChange(0)}/>
 			</div>
 			<div className={styles.price}>
-				<b>770 ₽</b>
+				<b>{price * amount} ₽</b>
 			</div>
 			<div className={styles.remove}>
-				<ButtonCircle innerIcon={'remove'} />
+				<ButtonCircle innerIcon={'remove'} 
+				action = {deletePizza}/>
 			</div>
 		</div>
 	);

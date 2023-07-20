@@ -13,8 +13,7 @@ function Categories(props) {
 		<div className={styles.categories}>
 			<div className={styles.burger}>
 				<BurgerCategories
-				setOpen = {() => setOpen(!open)}/>
-				{/* <div className={styles.body}> */}
+				setOpen = {(value) => value !== undefined ? setOpen(value) : setOpen(!open)}/>
 					<ul className={open ? `${styles.list} ${styles.open}` : `${styles.list}`}>
 						{React.Children.map(props.children, (child) => {
 							return React.cloneElement(child, {
@@ -30,7 +29,6 @@ function Categories(props) {
 							});
 						})}
 					</ul>
-				{/* </div> */}
 			</div>
 		</div>
 	);

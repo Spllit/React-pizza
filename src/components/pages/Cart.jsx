@@ -1,8 +1,13 @@
-import React from 'react';
 import CartItem from '../CartItem/CartItem';
-import styles from './Cart.module.scss';
+import styles from './styles/Cart.module.scss';
 import { ButtonDark, ButtonPrimary } from '../Buttons/Buttons';
-function Cart() {
+import { useSelector, useDispatch } from 'react-redux';
+import { clearCart} from '../../redux/slices/cartSlice';
+function Cart({updatePizzaInCart, deletePizza}) {
+	const dispatch = useDispatch()
+	const cartItems = useSelector(state => state.cart.cartItems)
+	const {totalPrice, totalAmount} = useSelector(state => state.cart)
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.top}>
@@ -37,7 +42,10 @@ function Cart() {
 					</svg>
 					Корзина
 				</h2>
-				<div className={styles.clear}>
+				<div 
+				className={styles.clear}
+				onClick={() => dispatch(clearCart())}
+				>
 					<svg
 						width="20"
 						height="20"
@@ -77,20 +85,56 @@ function Cart() {
 				</div>
 			</div>
 			<div className={styles.items}>
-				<CartItem />
+				{
+					cartItems.map((element, i) => {
+						console.log(element)
+						return (
+							<CartItem 
+								key={`${element.pizza.imageUrl}${i}`}
+								name = {element.pizza.title}
+								cardIndex = {i}
+								onAmountChange = {(updatedAmount) => {
+									const pizza = {
+										...element.pizza,
+										amount: updatedAmount
+									}
+									console.log(pizza)
+									updatePizzaInCart(i, element.mokapiID, pizza)
+
+								}}
+								deletePizza = {() => deletePizza(element.mokapiID, i)}
+								description={{
+									type: element.pizza.currentPizzaType, 
+									size: element.pizza.currentPizzaSize
+								}}
+								price = {element.pizza.price}
+								amount = {element.pizza.amount}
+								src = {element.pizza.imageUrl}
+							/>	
+						)
+						
+					})
+				}
 			</div>
 			<div className={styles.bottom}>
-				<div className={styles.details}>
-					<span>
-						Всего пицц: <b>3 шт.</b>
-					</span>
-					<span>
-						Сумма заказа: <b>900 ₽</b>
-					</span>
-				</div>
+				{
+					totalPrice !== 0 && (
+						<div className={styles.details}>
+							<span>
+								Всего пицц: <b>{totalAmount} шт.</b>
+							</span>
+							<span>
+								Сумма заказа: <b>{totalPrice} ₽</b>
+							</span>
+						</div>
+					)
+				}
+				
 				<div className={styles.bottomButtons}>
 					<ButtonDark />
-					<ButtonPrimary />
+					{
+						totalPrice !== 0 && <ButtonPrimary/>
+					}
 				</div>
 			</div>
 		</div>

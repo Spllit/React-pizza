@@ -1,33 +1,23 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import style from './Header.module.scss';
 import { ButtonCart } from '../Buttons/Buttons';
 import { Link } from 'react-router-dom';
 import Search from '../Search/Search';
-// import useScrollEffect from '../../customHooks/useScrollEffect';
+import { useSelector } from 'react-redux';
 
 export default function Header({ search }) {
 	const [scrollDirection, setScrollDirection] = useState('up')
 	const prevScrollPosition = useRef(0)
 	const scrollPosition = useRef(window.scrollY)
-	// useEffect(() => {
-	// 	prevScrollPosition.current(window.scrollY)
-	// }, [])
+	const {totalAmount, totalPrice} = useSelector(state => state.cart)
+
 	window.addEventListener('scroll', () => {
 		scrollPosition.current = window.scrollY
-		// console.log(scrollPosition.current)
-		// console.log(prevScrollPosition.current)
-		if(scrollPosition.current > prevScrollPosition.current) {
-			setScrollDirection(() => 'down'); 
-			// prevScrollPosition.current = scrollPosition
-			console.log('down')
-		}
-		else if(scrollPosition.current < prevScrollPosition.current) {
-			setScrollDirection(() => 'up'); 
-			// prevScrollPosition.current = scrollPosition
-			console.log('up')
-	}
-	prevScrollPosition.current = scrollPosition.current
-		// prevScrollPosition.current = scrollPosition
+
+		if(scrollPosition.current > prevScrollPosition.current) setScrollDirection(() => 'down')
+		else if(scrollPosition.current < prevScrollPosition.current) setScrollDirection(() => 'up')
+				
+		prevScrollPosition.current = scrollPosition.current
 	})
 	return (
 		<div className={style.header}>
@@ -45,6 +35,8 @@ export default function Header({ search }) {
 				<div className="cart">
 					<Link to="/cart">
 						<ButtonCart 
+						amount = {totalAmount}
+						price = {totalPrice}
 						scrollDirection = {scrollDirection}/>
 					</Link>
 				</div>

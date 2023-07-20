@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import style from './Sort.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSortBy } from '../../redux/slices/filterSlice';
@@ -12,8 +12,18 @@ export default function Sort() {
 		price: 'по цене',
 		title: 'по алфавиту',
 	};
+	const sortRef = useRef()
+	useEffect(() => {
+		const body = document.querySelector('body')
+		const onClick = (e) => {
+			if(!e.composedPath().includes(sortRef.current)) setPopupIsOpen(false)
+		}
+		body.addEventListener('click', onClick)
+		return () => body.removeEventListener('click', onClick)
+	}, [])
+
 	return (
-		<div className={style.sort} onClick={() => setPopupIsOpen(() => !popupIsOpen)}>
+		<div ref={sortRef} className={style.sort} onClick={() => setPopupIsOpen(() => !popupIsOpen)}>
 			<div className={style.label}>
 			<svg fill="#000" height="25" viewBox="0 0 16 16" width="25" xmlns="http://www.w3.org/2000/svg"><path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg>
 				<b>Сортировать : </b>

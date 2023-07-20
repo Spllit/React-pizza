@@ -22,11 +22,11 @@ function ButtonAdd({ amount, onClick }) {
 		</button>
 	);
 }
-function ButtonCart({scrollDirection}) {
+function ButtonCart({scrollDirection, price, amount}) {
 	return (
 		<button>
 			<div className={scrollDirection === 'down' ?`${styles.button} ${styles.buttonCart} ${styles.hideButton}` : `${styles.button} ${styles.buttonCart}`}>
-				<span>520 ₽</span>
+				<span>{price} ₽</span>
 				<div className={styles.buttonDelimiter}></div>
 				<svg
 					width="18"
@@ -56,7 +56,7 @@ function ButtonCart({scrollDirection}) {
 						strokeLinejoin="round"
 					/>
 				</svg>
-				<span>3</span>
+				<span>{amount}</span>
 			</div>
 		</button>
 	);
@@ -85,7 +85,7 @@ function ButtonPrimary() {
 		</button>
 	);
 }
-function ButtonCircle({ innerIcon }) {
+function ButtonCircle({ innerIcon, action }) {
 	const plus = (
 		<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -134,7 +134,8 @@ function ButtonCircle({ innerIcon }) {
 		<button
 			className={`${styles.buttonCircle} ${styles.buttonOutline} ${styles.button} ${
 				innerIcon === 'remove' ? styles.circleBlack : null
-			}`}>
+			}`}
+			onClick={action}>
 			{getInnerIcon()}
 		</button>
 	);

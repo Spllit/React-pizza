@@ -1,10 +1,21 @@
+import { useRef, useEffect } from 'react'
 import styles from './BurgerCategories.module.scss'
 import { useSelector } from 'react-redux'
 
 export default function BurgerCategories({setOpen}){
     const category = useSelector(state => state.filter.category)
+    const burgerRef = useRef()
+    useEffect(() => {
+        const body = document.querySelector('body')
+        const onClick = (e) => {
+            if(!(e.composedPath().includes(burgerRef.current))) setOpen(false)
+        }
+        body.addEventListener('click', onClick)
+        return () => body.removeEventListener('click', onClick)
+    }, [])
     return(
         <button 
+        ref={burgerRef}
         type='button'
         className={styles.burger}
         onClick = {() => setOpen()}

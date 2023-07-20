@@ -3,15 +3,10 @@ import { Container, Row, Col } from 'react-bootstrap';
 import PizzaCard from '../PizzaCard/PizzaCard';
 import Skeleton from '../Skeleton/Skeleton';
 import Paginate from '../Paginate/Paginate'
-import styles from './Home.module.scss';
-// import ReactPaginate from 'react-paginate';
+import styles from './styles/Home.module.scss';
 import { useSelector } from 'react-redux';
-// import { setCurrentPageIndex, setFilters } from '../../redux/slices/filterSlice';
-// import qs from 'qs';
 
-
-export default function Home({loading}) {
-
+export default function Home({loading, addNewPizza, updatePizzaInCart}) {
 	const { items } = useSelector((state) => state.items);
 	let index = 0;
 
@@ -28,7 +23,10 @@ export default function Home({loading}) {
 		return items.map((item) => {
 			return (
 				<Col xs="12" sm="12" md="6" lg="4" key={item.id}>
-					<PizzaCard {...item} />
+					<PizzaCard {...item} 
+					addNewPizza = {(pizza) => addNewPizza(pizza)}
+					updatePizzaInCart = {(id, data, existentItemIndex) => updatePizzaInCart(id, data, existentItemIndex)}
+					/>
 				</Col>
 			);
 		});
