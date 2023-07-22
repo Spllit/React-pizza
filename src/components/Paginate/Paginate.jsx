@@ -14,15 +14,16 @@ export default function Paginate(){
     return(
 		<>
 			{
-				(itemsQty && itemsQty > 6) ?
+				(itemsQty && itemsQty > 6) 
+				?
 					<Pagination
 					count = {Math.ceil(itemsQty / 6)}
 					page = {+currentPageIndex}
 					onChange={handleClick}
 					size="large"
-					color="primary"
-					></Pagination>
-					: null
+					color="primary">
+					</Pagination>
+				:	null
 			}
 		</>
     )

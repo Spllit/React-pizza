@@ -6,6 +6,7 @@ import Sort from './Sort/Sort';
 import Header from './Header/Header';
 import { Cart } from './pages/Cart';
 import {CartEmpty}  from './pages/CartEmpty';
+import {OrderMade}  from './pages/OrderMade';
 import { Categories, CategoriesItems } from './Categories/Categories';
 import { Routes, Route } from 'react-router-dom';
 import AppContext from '../Context/Context';
@@ -17,7 +18,7 @@ import debounce from 'lodash.debounce';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 import { setFilters, setItemsQty } from '../redux/slices/filterSlice';
-import { setTotalAmount, setTotalPrice } from '../redux/slices/cartSlice';
+import { setTotalAmount, setTotalPrice, clearCart as clearLocalCart } from '../redux/slices/cartSlice';
 
 export default function App() {
 	const navigate = useNavigate();
@@ -26,6 +27,7 @@ export default function App() {
 	const { items } = useSelector((state) => state.items);
 	const cartItems = useSelector(state => state.cart.cartItems)
 	const [isLoading, setIsLoading] = useState(true);
+	const [orderMade, setOrderMade] = useState(false)
 	const isMounted = useRef(false)
 	const isLoaded = useRef(false)
 
@@ -44,7 +46,7 @@ export default function App() {
 			pizza: res[0],
 			id: res['id']
 		}))})
-
+		setOrderMade(false)
 	}
 	const updatePizzaInCart = async(cartID, mokapiID, pizzaToUpdate) => {
 		await clearData(mokapiID)
@@ -61,7 +63,12 @@ export default function App() {
 		await clearData(mokapiID)
 		dispatch(removeItems(cartID))
 	}
-
+	const clearCart = async() => {
+		await cartItems.forEach(item => {
+			clearData(item.mokapiID)
+		})
+		await dispatch(clearLocalCart())
+	}
 	// считаем количество и стоимость всех пицц и обновляем store
 	useEffect(() => {
 		let totalAmount = 0;
@@ -147,11 +154,33 @@ export default function App() {
 		}
 		return url;
 	};
-
+	const cartPage = () => {
+		if(cartItems.length && !orderMade) {
+			return (
+				<Cart 
+				updatePizzaInCart = {(cartID, mokapiID, pizzaToUpdate) => updatePizzaInCart(cartID, mokapiID, pizzaToUpdate)} 
+				deletePizza= {(mokapiID, cartiD) => deletePizza(mokapiID, cartiD)}/>
+			)
+		}
+		else if(orderMade) {
+			return (
+				<OrderMade/>
+			)
+		}
+		return <CartEmpty/>
+	}
 	return (
 		<AppContext.Provider
 			value={{
 				items,
+				orderMade,
+				isLoading,
+				setOrderMade,
+				clearCart,
+				addNewPizza,
+				updatePizzaInCart,
+				deletePizza,
+				
 			}}>
 			<div fluid="xxl">
 				<div className={styles.wrapper}>
@@ -172,19 +201,11 @@ export default function App() {
 												<Sort />
 											</div>
 											<h2 className={styles.contentTitle}>{category} пиццы</h2>
-											<Home loading={isLoading} 
-											addNewPizza = {(pizza) => addNewPizza(pizza)}
-											updatePizzaInCart = {(id, data, existentItemIndex) => updatePizzaInCart(id, data, existentItemIndex)}
-											/>
+											<Home/>
 										</>
-									}></Route>
-								<Route path="/cart" element={
-									cartItems.length 
-									? <Cart 
-									updatePizzaInCart = {(cartID, mokapiID, pizzaToUpdate) => updatePizzaInCart(cartID, mokapiID, pizzaToUpdate)} 
-									deletePizza= {(mokapiID, cartiD) => deletePizza(mokapiID, cartiD)}/> 
-									: <CartEmpty/>
-								}></Route>
+									}>
+								</Route>
+								<Route path="/cart" element={cartPage()}></Route>
 							</Routes>
 						</div>
 					</div>

@@ -1,12 +1,15 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import style from './PizzaCard.module.scss';
 import { PizzaCardSelector } from '../PizzaCardSelector.jsx/PizzaCardSelector';
 import { ButtonAdd } from '../Buttons/Buttons';
-import { useSelector, useDispatch } from 'react-redux';
-import {addItems, updateItem} from '../../redux/slices/cartSlice'
+import { useSelector} from 'react-redux';
+// import {addItems, updateItem} from '../../redux/slices/cartSlice'
+import AppContext from '../../Context/Context';
 
-export default function PizzaCard({id, title, price, types, sizes, imageUrl, addNewPizza, updatePizzaInCart}) {
-	const dispatch = useDispatch()
+export default function PizzaCard({id, title, price, types, sizes, imageUrl}) {
+	const {
+		addNewPizza,
+		updatePizzaInCart} = useContext(AppContext)
 	const cartItems = useSelector(state => state.cart.cartItems)
 	const [amount, setAmount] = useState(0);
 	const [currentPizzaType, setCurrentPizzaType] = useState(types[0]);

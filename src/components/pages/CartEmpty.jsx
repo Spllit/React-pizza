@@ -1,9 +1,9 @@
 import React from 'react';
 import {ButtonDark} from '../Buttons/Buttons'
-import styles from './styles/CartEmpty.module.scss'
+import styles from './styles/CartTemplate.module.scss'
 function CartEmpty() {
 	return (
-		<div className={`${styles.empty}`}>
+		<div className={`${styles.template}`}>
 			<h2>
 				Корзина пустая 
 			</h2>

@@ -31,9 +31,6 @@ const cartSlice = createSlice({
 				mokapiID: action.payload.id
 			}
 		},
-		updateAmount(state,action){
-			state.cartItems[action.payload.index].amount = action.payload.amount
-		},
 		removeItems(state, action){
 			state.cartItems = state.cartItems.filter((obj, index) => index !== action.payload)
 		},
@@ -43,5 +40,5 @@ const cartSlice = createSlice({
 	},
 });
 
-export const {addItems, updateItem, updateAmount,setTotalPrice, setTotalAmount, removeItems, clearCart, setNewCart} = cartSlice.actions;
+export const {addItems, updateItem, setTotalPrice, setTotalAmount, removeItems, clearCart, setNewCart} = cartSlice.actions;
 export default cartSlice.reducer;

@@ -128,27 +128,6 @@
 		}
 	}
 }
-// @keyframes hide {
-// 	0%{
-// 		transform: translateY(0);
-// 	}
-// 	100%{
-// 		transform: translateY(200%);
-// 		position: absolute;
-// 		display: none;
-// 		visibility: hidden;
-		
-// 	}
-// }
-// @keyframes show {
-// 	0%{
-// 		position: fixed;
-// 		transform: translateY(200%);
-// 	}
-// 	100%{
-// 		transform: translateY(0);
-// 	}
-// }
 
 .buttonBlack {
 	background-color: $black;
@@ -186,6 +165,19 @@
 		path {
 			fill: transparent;
 			stroke-width: 2;
+		}
+	}
+}
+@media screen and (max-width: 460px){
+	.buttonDark{
+		width: 46px;
+		min-width: initial;
+		padding: 10px 10px;
+		svg{
+			margin-right: 0;
+		}
+		span{
+			display: none;
 		}
 	}
 }
